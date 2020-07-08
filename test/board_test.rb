@@ -26,6 +26,7 @@ class BoardTest < Minitest::Test
 
     assert_equal true, board.valid_coordinate("A1")
     assert_equal true, board.valid_coordinate("D4")
+
     assert_equal false, board.valid_coordinate("A5")
     assert_equal false, board.valid_coordinate("E1")
     assert_equal false, board.valid_coordinate("A22")
@@ -38,6 +39,7 @@ class BoardTest < Minitest::Test
 
     assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
     assert_equal false, board.valid_placement?(sub, ["A2", "A3", "A4"])
+
     assert_equal true, board.valid_placement?(cruiser, ["A1", "A2", "A3"])
     assert_equal true, board.valid_placement?(sub, ["D1", "D2"])
 
@@ -57,4 +59,12 @@ class BoardTest < Minitest::Test
     assert_equal true, board.consecutive_coordinates?(sub, ["C1", "D1"])
   end
 
+  def test_it_cannot_have_diagonal_coordinates
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "B2", "C3"])
+    assert_equal false, board.valid_placement?(sub, ["C2", "D3"])
+  end
 end
