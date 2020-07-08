@@ -17,6 +17,10 @@ class BoardTest < Minitest::Test
     board = Board.new
 
     assert_equal Hash, board.cells.class
+    assert_equal 16, board.cells.count
+    assert_equal Cell, board.cells["A1"].class
   end
+
+
 
 end
