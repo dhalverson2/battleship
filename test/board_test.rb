@@ -13,5 +13,10 @@ class BoardTest < Minitest::Test
     assert_instance_of Board, board
   end
 
+  def test_it_can_have_cells
+    board = Board.new
+
+    assert_equal Hash, board.cells.class
+  end
 
 end
