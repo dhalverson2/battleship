@@ -67,4 +67,70 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_placement?(cruiser, ["A1", "B2", "C3"])
     assert_equal false, board.valid_placement?(sub, ["C2", "D3"])
   end
+
+  def test_it_can_place_ship
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+    cell_1 = board.cells["A1"]
+    cell_2 = board.cells["A2"]
+    cell_3 = board.cells["A3"]
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    assert_equal cruiser, cell_1.ship
+    assert_equal cruiser, cell_2.ship
+    assert_equal cruiser, cell_3.ship
+  end
+
+  def test_ships_cant_overlap
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    assert_equal false, board.valid_placement?(sub, ["A1", "B1"])
+  end
+
+  def test_it_can_render_board
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    expected = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected, board.render
+    expected2 = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected2, board.render(true)
+  end
+
+  def test_it_can_render_board_miss
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    board.cells["B1"].fire_upon
+    assert_equal "  1 2 3 4 \nA . . . . \nB M . . . \nC . . . . \nD . . . . \n", board.render
+  end
+
+  def test_it_can_render_board_hit
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    board.cells["A1"].fire_upon
+    board.cells["A2"].fire_upon
+
+    assert_equal "  1 2 3 4 \nA H H . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
+  end
+
+  def test_it_can_render_sunk
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    board.cells["A1"].fire_upon
+    board.cells["A2"].fire_upon
+    board.cells["A3"].fire_upon
+
+    assert_equal "  1 2 3 4 \nA X X X . \nB . . . . \nC . . . . \nD . . . . \n", board.render
+  end
 end
