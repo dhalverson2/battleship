@@ -10,10 +10,11 @@ class Cell
   end
 
   def empty?
-   @ship == nil
+    @empty
   end
 
   def place_ship(ship)
+    @empty = false
     @ship = ship
   end
 
