@@ -23,8 +23,10 @@ class Cell
   end
 
   def fire_upon
-    @fired_upon = true
-    @ship.hit if !empty?
+    if !fired_upon?
+      @fired_upon = true
+      @ship.hit if !empty?
+    end
   end
 
   def render(reveal = false)
