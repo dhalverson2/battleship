@@ -23,5 +23,4 @@ class PlayerTest < Minitest::Test
     assert_equal "Human", human_player.type
     assert_equal "CPU", cpu_player.type
   end
-
 end
