@@ -105,7 +105,6 @@ class CellTest < Minitest::Test
     cell_2.place_ship(cruiser)
     cell_3.place_ship(cruiser)
     assert_equal false, cruiser.sunk?
-    require "pry"; binding.pry
     cell_1.fire_upon
     cell_2.fire_upon
     cell_3.fire_upon
