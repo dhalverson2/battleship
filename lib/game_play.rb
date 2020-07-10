@@ -25,11 +25,23 @@ class GamePlay
     @cpu_player.board.cells.keys.permutation(3).to_a
   end
 
+  def create_cpu_coordinate_array_sub
+    @cpu_player.board.cells.keys.permutation(2).to_a
+  end
+
   def select_cpu_valid_coordinate_array_cruiser
     create_cpu_coordinate_array_cruiser.select do |coordinate|
       @cpu_player.board.valid_placement?(@cpu_cruiser, coordinate)
     end
   end
+
+  def select_cpu_valid_coordinate_array_sub
+    create_cpu_coordinate_array_sub.select do |coordinate|
+      @cpu_player.board.valid_placement?(@cpu_sub, coordinate)
+    end
+  end
+
+
 
   def end_game
   end
