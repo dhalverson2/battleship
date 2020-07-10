@@ -6,7 +6,25 @@ class GamePlay
     @cpu_player = Player.new("CPU")
     @cpu_cruiser = Ship.new("Cruiser", 3)
     @cpu_sub = Ship.new("Submarine", 2)
+    @human_cruiser = Ship.new("Cruiser", 3)
+    @human_sub = Ship.new("Submarine", 2)
   end
+
+  def start
+    welcome_message
+    # play game
+  end
+
+  def play_game
+    until game_over? do
+ # game loop
+    end
+  end
+
+
+
+
+
 
   def welcome_message
     p "Welcome to BATTLESHIP"
@@ -18,8 +36,7 @@ class GamePlay
     gets.chomp.downcase
   end
 
-  # def cpu_ship_place
-  # end
+
 
   def create_cpu_coordinate_array_cruiser
     @cpu_player.board.cells.keys.permutation(3).to_a
@@ -48,7 +65,18 @@ class GamePlay
   def random_placement_sub
     select_cpu_valid_coordinate_array_sub.sample
   end
-  
-  def end_game
+
+  def human_wins?
+    @cpu_cruiser.health == 0 && @cpu_sub.health == 0
   end
+
+  def cpu_wins?
+    require "pry"; binding.pry
+    @human_cruiser.health == 0 && @human_sub.health == 0
+  end
+
+  def game_over?
+    human_wins || cpu_wins
+  end
+
 end

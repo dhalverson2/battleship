@@ -45,4 +45,47 @@ class GamePlayTest < Minitest::Test
     assert_equal Array, game_play.random_placement_sub.class
   end
 
+  # def test_it_can_return_when_cpu_wins
+  #   board = Board.new
+  #   human_cruiser = Ship.new("Cruiser", 3)
+  #   human_sub = Ship.new("Submarine", 2)
+  #   human_player = Player.new("Human")
+  #   cpu_player = Player.new("CPU")
+  #   game_play = GamePlay.new
+  #   cell_1 = Cell.new("B1")
+  #   cell_2 = Cell.new("B2")
+  #   cell_3 = Cell.new("B3")
+  #   cell_4 = Cell.new("A1")
+  #   cell_5 = Cell.new("A2")
+  #   human_player.board.place(human_cruiser, ["B1", "B2", "B3"])
+  #   human_player.board.place(human_sub, ["A1", "A2"])
+  #   human_player.board.cells["B1"].fire_upon
+  #   human_player.board.cells["B2"].fire_upon
+  #   human_player.board.cells["B3"].fire_upon
+  #   human_player.board.cells["A1"].fire_upon
+  #   human_player.board.cells["A2"].fire_upon
+  #
+  #   assert_equal true, game_play.cpu_wins?
+  #
+  # end
+
+  def test_it_can_return_when_human_wins
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+    game_play = GamePlay.new
+    cell_1 = Cell.new("B2")
+    cell_2 = Cell.new("B3")
+    cell_3 = Cell.new("B4")
+    board.place(cruiser, ["A1", "A2", "A3"])
+
+
+
+  end
+
+  def test_it_can_return_when_game_is_over
+
+
+  end
+
 end
