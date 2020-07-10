@@ -41,8 +41,14 @@ class GamePlay
     end
   end
 
+  def random_placement_cruiser
+    select_cpu_valid_coordinate_array_cruiser.sample
+  end
 
-
+  def random_placement_sub
+    select_cpu_valid_coordinate_array_sub.sample
+  end
+  
   def end_game
   end
 end
