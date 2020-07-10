@@ -16,6 +16,12 @@ class PlayerTest < Minitest::Test
     assert_instance_of Player, cpu_player
   end
 
+  def test_it_has_attributes
+    human_player = Player.new("Human")
+    cpu_player = Player.new("CPU")
 
+    assert_equal "Human", human_player.type
+    assert_equal "CPU", cpu_player.type
+  end
 
 end
