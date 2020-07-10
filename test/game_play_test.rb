@@ -38,6 +38,11 @@ class GamePlayTest < Minitest::Test
     assert_equal expected_sub, game_play.select_cpu_valid_coordinate_array_sub
   end
 
-  
+  def test_it_can_sample_from_valid_coordinates
+    game_play = GamePlay.new
+
+    assert_equal Array, game_play.random_placement_cruiser.class
+    assert_equal Array, game_play.random_placement_sub.class
+  end
 
 end
