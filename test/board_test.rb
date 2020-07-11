@@ -32,6 +32,16 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_coordinate?("A22")
   end
 
+  def test_it_contains_a_valid_set_of_ship_coordinates
+    board = Board.new
+
+    assert_equal true, board.valid_ship_coordinates?(["A1", "A2", "A3"])
+    assert_equal true, board.valid_ship_coordinates?(["D3", "D4"])
+
+    assert_equal false, board.valid_ship_coordinates?(["A3", "A4", "A5"])
+    assert_equal false, board.valid_ship_coordinates?(["D4", "D5"])
+  end
+
   def test_it_contains_a_valid_ship_placement
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
@@ -118,7 +128,7 @@ class BoardTest < Minitest::Test
     board.place(cruiser, ["A1", "A2", "A3"])
     board.cells["A1"].fire_upon
     board.cells["A2"].fire_upon
-    
+
 
     assert_equal "  1 2 3 4 \nA H H . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
   end

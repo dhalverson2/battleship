@@ -27,7 +27,7 @@ class Board
   end
 
   def valid_ship_coordinates?(cruiser_coordinates)
-    a = cruiser_coordinates.all? do |coordinate|
+    cruiser_coordinates.all? do |coordinate|
       valid_coordinate?(coordinate)
     end
   end
