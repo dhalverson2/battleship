@@ -1,4 +1,5 @@
 require './lib/board'
+require 'pry'
 class GamePlay
 
   def initialize
@@ -12,11 +13,93 @@ class GamePlay
 
   def start
     welcome_message
-    # play game
+    if user_input == "P"
+      cpu_place_ship
+      initial_message
+      player_place_cruiser
+      turn
+    elsif user_input == "Q"
+      p "Thanks for playing"
+    else
+      start
+    end
   end
 
-  def play_game
+  def initial_message
+    p "I have laid out my ships on the grid."
+    p "You now need to lay out your two ships."
+    p "The Cruiser is three units long"
+    p "and the Submarine is two units long."
+    p "Example of valid cruiser coordinates is A1 A2 A3 or A3 B3 C3"
+    p "Enter the squares for the cuiser (3 spaces):"
+  end
+
+  def valid_sub_message
+    p "Example of valid cruiser coordinates is C1 C2 or C4 D4"
+    p "Enter the spaces for the Submarine (2 spaces):"
+  end
+
+  def player_shot
+    p "Please enter a VALID coordinate for your shot:"
+    player_shot = user_input
+    until @cpu_player.board.valid_coordinate?(player_shot) do
+      p "That was INVALID. Try again:"
+      player_shot = user_input
+    end
+    if @cpu_player.board.valid_coordinate?(player_shot)
+      if @cpu_player.board.cells[player_shot].fired_upon?
+        p "Already fired upon this space. Lose a turn."
+      else
+        @cpu_player.board.cells[player_shot].fire_upon
+        if @cpu_player.board.cells[player_shot].render == "X"
+          p "Your shot on #{player_shot} was a hit. #{@cpu_player.board.cells[player_shot].ship.name} was sunk!"
+        elsif @cpu_player.board.cells[player_shot].render == "H"
+          p "Your shot on #{player_shot} was a hit."
+        else
+          p "your shot on #{player_shot} was a miss."
+        end
+      end
+    end
+  end
+
+  def player_place_cruiser
+    cruiser_coordinates = user_input.split(" ")
+    until @human_player.board.valid_placement?(@human_cruiser, cruiser_coordinates) do
+      p "Those are INVALID coordinates. Please try again:"
+      cruiser_coordinates = user_input.split(" ")
+    end
+    @human_player.board.place(@human_cruiser, cruiser_coordinates)
+  end
+    # binding.pry
+    # if @human_player.board.valid_placement?(@human_cruiser, x)
+    #   @human_player.board.place(@human_cruiser, x)
+    # else
+    #   p "Those are INVALID coordinates please try again"
+    # end
+    # @human_player.board.render(true)
+    #
+    # binding.pry
+
+  def display_board
+    p "=============COMPUTER BOARD============="
+    puts @cpu_player.board.render
+    p "==============PLAYER BOARD=============="
+    puts @human_player.board.render(true)
+  end
+
+  def cpu_shot
+
+  end
+
+  def cpu_place_ship
+    @cpu_player.board.place(@cpu_cruiser, random_placement_cruiser)
+    @cpu_player.board.place(@cpu_sub, random_placement_sub)
+  end
+
+  def turn
     until game_over? do
+      display_board
+      player_shot
  # game loop
     end
   end
@@ -33,7 +116,7 @@ class GamePlay
   end
 
   def user_input
-    gets.chomp.downcase
+    gets.chomp.upcase
   end
 
 
@@ -75,6 +158,6 @@ class GamePlay
   end
 
   def game_over?
-    human_wins || cpu_wins
+    human_wins? || cpu_wins?
   end
 end
