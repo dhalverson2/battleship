@@ -26,6 +26,12 @@ class Board
     @cells.include?(coordinate)
   end
 
+  def valid_ship_coordinates?(cruiser_coordinates)
+    a = cruiser_coordinates.all? do |coordinate|
+      valid_coordinate?(coordinate)
+    end
+  end
+
   def valid_placement?(ship, coordinates)
     (ship.length == coordinates.count) && consecutive_coordinates?(ship, coordinates) && !overlap?(coordinates)
   end

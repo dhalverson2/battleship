@@ -98,7 +98,7 @@ class GamePlay
 
   def player_place_cruiser
     cruiser_coordinates = user_input.split(" ")
-    until @human_player.board.valid_placement?(@human_cruiser, cruiser_coordinates) && @human_player.board.valid_coordinate? do
+    until @human_player.board.valid_ship_coordinates?(cruiser_coordinates) && @human_player.board.valid_placement?(@human_cruiser, cruiser_coordinates) do
       p "Those are INVALID coordinates. Please try again:"
       cruiser_coordinates = user_input.split(" ")
     end
@@ -107,7 +107,7 @@ class GamePlay
 
   def player_place_sub
     sub_coordinates = user_input.split(" ")
-    until @human_player.board.valid_placement?(@human_sub, sub_coordinates) do
+    until @human_player.board.valid_ship_coordinates?(sub_coordinates) && @human_player.board.valid_placement?(@human_sub, sub_coordinates) do
       p "Those are INVALID coordinates. Please try again:"
       sub_coordinates = user_input.split(" ")
     end
