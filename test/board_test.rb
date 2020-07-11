@@ -52,7 +52,6 @@ class BoardTest < Minitest::Test
 
     assert_equal true, board.valid_placement?(cruiser, ["A1", "A2", "A3"])
     assert_equal true, board.valid_placement?(sub, ["D1", "D2"])
-
   end
 
   def test_it_has_consecutive_coordinates
@@ -98,7 +97,8 @@ class BoardTest < Minitest::Test
     sub = Ship.new("Submarine", 2)
 
     board.place(cruiser, ["A1", "A2", "A3"])
-    assert_equal false, board.valid_placement?(sub, ["A1", "B1"])
+    assert_equal true, board.overlap?(["A1", "B1"])
+    assert_equal false, board.overlap?(["D1", "D2"])
   end
 
   def test_it_can_render_board
@@ -128,7 +128,6 @@ class BoardTest < Minitest::Test
     board.place(cruiser, ["A1", "A2", "A3"])
     board.cells["A1"].fire_upon
     board.cells["A2"].fire_upon
-
 
     assert_equal "  1 2 3 4 \nA H H . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
   end
