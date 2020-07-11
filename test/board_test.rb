@@ -118,6 +118,7 @@ class BoardTest < Minitest::Test
     board.place(cruiser, ["A1", "A2", "A3"])
     board.cells["A1"].fire_upon
     board.cells["A2"].fire_upon
+    
 
     assert_equal "  1 2 3 4 \nA H H . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
   end
