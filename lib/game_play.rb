@@ -12,7 +12,13 @@ class GamePlay
 
   def start
     welcome_message
-    # play game
+    if user_input == "p"
+      play_game
+    elsif user_input == "q"
+      "Thanks for playing"
+    else
+      welcome_message
+    end 
   end
 
   def play_game
