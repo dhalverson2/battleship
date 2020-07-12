@@ -21,6 +21,12 @@ class BoardTest < Minitest::Test
     assert_equal Cell, board.cells["A1"].class
   end
 
+  def test_it_can_create_coordinates
+    board = Board.new
+
+    assert_equal Hash, board.create_coordinates
+  end
+
   def test_it_contains_a_valid_coordinate
     board = Board.new
 
