@@ -4,8 +4,7 @@ class Cell
 
   def initialize(coordinate)
     @coordinate = coordinate
-    # require "pry"; binding.pry
-    @ship = nil 
+    @ship = nil
     @empty = true
     @fired_upon = false
   end

@@ -23,8 +23,6 @@ class GamePlay
       turn
     elsif user_input == "Q"
       p "Thanks for playing"
-    else
-      start
     end
   end
 

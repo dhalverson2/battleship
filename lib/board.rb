@@ -54,7 +54,7 @@ class Board
 
   def overlap?(coordinates)
     coordinates.any? do |coordinate|
-      @cells[coordinate].ship
+      !@cells[coordinate].empty?
     end
   end
 
