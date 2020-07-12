@@ -40,20 +40,8 @@ class GamePlay
       puts
       p "I won!"
     end
-  end
-
-  def initial_message
-    p "I have laid out my ships on the grid."
-    p "You now need to lay out your two ships."
-    p "The Cruiser is three units long"
-    p "and the Submarine is two units long."
-    p "Example of valid cruiser coordinates is A1 A2 A3 or A3 B3 C3"
-    p "Enter the squares for the cuiser (3 spaces):"
-  end
-
-  def valid_sub_message
-    p "Example of valid cruiser coordinates is C1 C2 or C4 D4"
-    p "Enter the squares for the Submarine (2 spaces):"
+    play_again
+    start
   end
 
   def player_shot
@@ -112,6 +100,22 @@ class GamePlay
     @human_player.board.place(@human_sub, sub_coordinates)
   end
 
+# Game Messages
+  def welcome_message
+    p "Welcome to BATTLESHIP"
+    puts
+    p "Enter p to play. Enter q to quit."
+  end
+
+  def initial_message
+    p "I have laid out my ships on the grid."
+    p "You now need to lay out your two ships."
+    p "The Cruiser is three units long"
+    p "and the Submarine is two units long."
+    p "Example of valid cruiser coordinates is A1 A2 A3 or A3 B3 C3"
+    p "Enter the squares for the cuiser (3 spaces):"
+  end
+
   def display_board
     p "=============COMPUTER BOARD============="
     puts @cpu_player.board.render
@@ -119,15 +123,14 @@ class GamePlay
     puts @human_player.board.render(true)
   end
 
+  def valid_sub_message
+    p "Example of valid cruiser coordinates is C1 C2 or C4 D4"
+    p "Enter the squares for the Submarine (2 spaces):"
+  end
+
   def cpu_place_ship
     @cpu_player.board.place(@cpu_cruiser, random_placement_cruiser)
     @cpu_player.board.place(@cpu_sub, random_placement_sub)
-  end
-
-  def welcome_message
-    p "Welcome to BATTLESHIP"
-    puts
-    p "Enter p to play. Enter q to quit."
   end
 
   def user_input
@@ -172,5 +175,10 @@ class GamePlay
 
   def game_over?
     human_wins? || cpu_wins?
+  end
+
+  def play_again
+    # game_play = GamePlay.new
+    initialize
   end
 end
