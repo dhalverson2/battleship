@@ -57,19 +57,24 @@ class GamePlay
     player_shot = user_input
     until @cpu_player.board.valid_coordinate?(player_shot) do
       puts "That was INVALID. Try again:"
+      puts
       player_shot = user_input
     end
     if @cpu_player.board.valid_coordinate?(player_shot)
       if @cpu_player.board.cells[player_shot].fired_upon?
         puts "Already fired upon this space. Lose a turn."
+        puts
       else
         @cpu_player.board.cells[player_shot].fire_upon
         if @cpu_player.board.cells[player_shot].render == "X"
           puts "Your shot on #{player_shot} was a hit. #{@cpu_player.board.cells[player_shot].ship.name} was sunk!"
+          puts
         elsif @cpu_player.board.cells[player_shot].render == "H"
           puts "Your shot on #{player_shot} was a hit."
+          puts
         else
           puts "Your shot on #{player_shot} was a miss."
+          puts
         end
       end
     end
@@ -83,10 +88,13 @@ class GamePlay
     @human_player.board.cells[cpu_shot].fire_upon
     if @human_player.board.cells[cpu_shot].render == "X"
       puts "My shot on #{cpu_shot} was a hit. #{@human_player.board.cells[cpu_shot].ship.name} was sunk!"
+      puts
     elsif @human_player.board.cells[cpu_shot].render == "H"
       puts "My shot on #{cpu_shot} was a hit."
+      puts
     else
       puts "My shot on #{cpu_shot} was a miss."
+      puts
     end
   end
 
@@ -94,6 +102,7 @@ class GamePlay
     cruiser_coordinates = user_input.split(" ")
     until @human_player.board.valid_ship_coordinates?(cruiser_coordinates) && @human_player.board.valid_placement?(@human_cruiser, cruiser_coordinates) do
       puts "Those are INVALID coordinates. Please try again:"
+      puts
       cruiser_coordinates = user_input.split(" ")
     end
     @human_player.board.place(@human_cruiser, cruiser_coordinates)
@@ -103,6 +112,7 @@ class GamePlay
     sub_coordinates = user_input.split(" ")
     until @human_player.board.valid_ship_coordinates?(sub_coordinates) && @human_player.board.valid_placement?(@human_sub, sub_coordinates) do
       puts "Those are INVALID coordinates. Please try again:"
+      puts
       sub_coordinates = user_input.split(" ")
     end
     @human_player.board.place(@human_sub, sub_coordinates)
@@ -128,6 +138,7 @@ class GamePlay
     sleep 0.5
     puts "Example of valid cruiser coordinates is A1 A2 A3 or A3 B3 C3"
     sleep 0.5
+    puts
     puts "Enter the squares for the cuiser (3 spaces):"
     puts
   end
@@ -145,6 +156,7 @@ class GamePlay
     puts
     puts "Example of valid cruiser coordinates is C1 C2 or C4 D4"
     sleep 0.5
+    puts
     puts "Enter the squares for the Submarine (2 spaces):"
     puts
   end
@@ -212,6 +224,4 @@ class GamePlay
       puts line
     end
   end
-
-
 end
