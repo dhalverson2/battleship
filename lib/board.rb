@@ -51,18 +51,22 @@ class Board
   end
 
   def consecutive_coordinates?(ship, coordinates)
-    letters = coordinates.map do |coordinate|
-      coordinate.ord
-    end
+
     numbers = coordinates.map do |coordinate|
       coordinate[-1].to_i
     end
-    if numbers.each_cons(2).map.all? { |a, b| b - a == 1 } && letters.uniq.count == 1
+    if numbers.each_cons(2).map.all? { |a, b| b - a == 1 } && letter_ordinal(coordinates).uniq.count == 1
       true
-    elsif letters.each_cons(2).map.all? { |a, b| b - a == 1 } && numbers.uniq.count == 1
+    elsif letter_ordinal(coordinates).each_cons(2).map.all? { |a, b| b - a == 1 } && numbers.uniq.count == 1
       true
     else
       false
+    end
+  end
+
+  def letter_ordinal(coordinates)
+    coordinates.map do |coordinate|
+      coordinate.ord
     end
   end
 

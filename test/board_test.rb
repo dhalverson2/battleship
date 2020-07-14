@@ -84,6 +84,15 @@ class BoardTest < Minitest::Test
     assert_equal [65, 65, 65], board.letter_ordinal(["A1", "A2", "A3"])
   end
 
+  def test_numbers_ordinal_values
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+
+    assert_equal [49, 50, 51], board.number_ordinal(["A1", "B2", "C3"])
+    assert_equal [49, 49, 49], board.number_ordinal(["A1", "B1", "C1"])
+  end
+
   def test_it_has_consecutive_coordinates
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
