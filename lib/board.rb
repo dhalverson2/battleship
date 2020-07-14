@@ -2,7 +2,7 @@ class Board
 
   attr_reader :cells
   def initialize
-    @cells = create_coordinates
+    # @cells = create_coordinates
     @cells = {
       "A1" => Cell.new("A1"),
       "A2" => Cell.new("A2"),
@@ -21,19 +21,6 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4")
     }
-  end
-
-  def create_coordinates
-    letters = ["A", "B", "C", "D"]
-    numbers = ["1", "2", "3", "4"]
-    coordinates_hash = {}
-    letters.each do |letter|
-      numbers.each do |number|
-        coordinate = letter.concat(number)
-        coordinates_hash[coordinate] = Cell.new(coordinate)
-      end
-    end
-    coordinates_hash
   end
 
   def valid_coordinate?(coordinate)
@@ -79,18 +66,17 @@ class Board
   end
 
   def render(reveal = false)
-    if reveal == true
+    # if reveal == true
       "  1 2 3 4 \n"\
-      "A #{cells["A1"].render(true)} #{cells["A2"].render(true)} #{cells["A3"].render(true)} #{cells["A4"].render(true)} \n"\
-      "B #{cells["B1"].render(true)} #{cells["B2"].render(true)} #{cells["B3"].render(true)} #{cells["B4"].render(true)} \n"\
-      "C #{cells["C1"].render(true)} #{cells["C2"].render(true)} #{cells["C3"].render(true)} #{cells["C4"].render(true)} \n"\
-      "D #{cells["D1"].render(true)} #{cells["D2"].render(true)} #{cells["D3"].render(true)} #{cells["D4"].render(true)} \n"
-    else
-      "  1 2 3 4 \n"\
-      "A #{cells["A1"].render} #{cells["A2"].render} #{cells["A3"].render} #{cells["A4"].render} \n"\
-      "B #{cells["B1"].render} #{cells["B2"].render} #{cells["B3"].render} #{cells["B4"].render} \n"\
-      "C #{cells["C1"].render} #{cells["C2"].render} #{cells["C3"].render} #{cells["C4"].render} \n"\
-      "D #{cells["D1"].render} #{cells["D2"].render} #{cells["D3"].render} #{cells["D4"].render} \n"
+      "A #{cells["A1"].render(reveal)} #{cells["A2"].render(reveal)} #{cells["A3"].render(reveal)} #{cells["A4"].render(reveal)} \n"\
+      "B #{cells["B1"].render(reveal)} #{cells["B2"].render(reveal)} #{cells["B3"].render(reveal)} #{cells["B4"].render(reveal)} \n"\
+      "C #{cells["C1"].render(reveal)} #{cells["C2"].render(reveal)} #{cells["C3"].render(reveal)} #{cells["C4"].render(reveal)} \n"\
+      "D #{cells["D1"].render(reveal)} #{cells["D2"].render(reveal)} #{cells["D3"].render(reveal)} #{cells["D4"].render(reveal)} \n"
+    # else
+    #   "  1 2 3 4 \n"\
+    #   "A #{cells["A1"].render} #{cells["A2"].render} #{cells["A3"].render} #{cells["A4"].render} \n"\
+    #   "B #{cells["B1"].render} #{cells["B2"].render} #{cells["B3"].render} #{cells["B4"].render} \n"\
+    #   "C #{cells["C1"].render} #{cells["C2"].render} #{cells["C3"].render} #{cells["C4"].render} \n"\
+    #   "D #{cells["D1"].render} #{cells["D2"].render} #{cells["D3"].render} #{cells["D4"].render} \n"
     end
   end
-end

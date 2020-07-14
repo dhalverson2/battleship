@@ -22,6 +22,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_can_create_coordinates
+    skip
     board = Board.new
 
     assert_equal Hash, board.create_coordinates

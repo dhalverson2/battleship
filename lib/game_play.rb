@@ -13,7 +13,8 @@ class GamePlay
 
   def start
     welcome_message
-    if user_input == "P"
+    input = user_input
+    if input == "P"
       cpu_place_ship
       initial_message
       player_place_cruiser
@@ -21,10 +22,10 @@ class GamePlay
       valid_sub_message
       player_place_sub
       turn
-    elsif "Q"
+    elsif input == "Q"
       puts "Thanks for playing"
     else
-      puts "Invalid imput. try again:"
+      puts "INVALID input. Try again:"
       start
     end
   end
@@ -182,7 +183,11 @@ class GamePlay
   end
 
   def play_again
-    # game_play = GamePlay.new
-    initialize
+    @human_player = Player.new("Human")
+    @cpu_player = Player.new("CPU")
+    @cpu_cruiser = Ship.new("Cruiser", 3)
+    @cpu_sub = Ship.new("Submarine", 2)
+    @human_cruiser = Ship.new("Cruiser", 3)
+    @human_sub = Ship.new("Submarine", 2)
   end
 end
