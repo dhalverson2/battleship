@@ -12,6 +12,8 @@ class GamePlay
   end
 
   def start
+    puts
+    puts print_image("welcome_image.txt")
     welcome_message
     input = user_input
     if input == "P"
@@ -44,6 +46,8 @@ class GamePlay
       puts
       puts "I won!"
     end
+    puts print_image("game_over_image.txt")
+    puts
     play_again
     start
   end
@@ -202,4 +206,12 @@ class GamePlay
     @human_cruiser = Ship.new("Cruiser", 3)
     @human_sub = Ship.new("Submarine", 2)
   end
+
+  def print_image(image_file)
+    File.read(image_file) do |line|
+      puts line
+    end
+  end
+
+
 end
