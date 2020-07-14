@@ -21,8 +21,11 @@ class GamePlay
       valid_sub_message
       player_place_sub
       turn
-    elsif user_input == "Q"
-      p "Thanks for playing"
+    elsif "Q"
+      puts "Thanks for playing"
+    else
+      puts "Invalid imput. try again:"
+      start
     end
   end
 
@@ -35,33 +38,34 @@ class GamePlay
     display_board
     if human_wins?
       puts
-      p "You won!"
+      puts "You won!"
     else
       puts
-      p "I won!"
+      puts "I won!"
     end
     play_again
     start
   end
 
   def player_shot
-    p "Please enter a VALID coordinate for your shot:"
+    puts "Please enter a VALID coordinate for your shot:"
     player_shot = user_input
     until @cpu_player.board.valid_coordinate?(player_shot) do
-      p "That was INVALID. Try again:"
+      puts "That was INVALID. Try again:"
       player_shot = user_input
     end
     if @cpu_player.board.valid_coordinate?(player_shot)
       if @cpu_player.board.cells[player_shot].fired_upon?
-        p "Already fired upon this space. Lose a turn."
+        puts "Already fired upon this space. Lose a turn."
+        player_shot = user_input
       else
         @cpu_player.board.cells[player_shot].fire_upon
         if @cpu_player.board.cells[player_shot].render == "X"
-          p "Your shot on #{player_shot} was a hit. #{@cpu_player.board.cells[player_shot].ship.name} was sunk!"
+          puts "Your shot on #{player_shot} was a hit. #{@cpu_player.board.cells[player_shot].ship.name} was sunk!"
         elsif @cpu_player.board.cells[player_shot].render == "H"
-          p "Your shot on #{player_shot} was a hit."
+          puts "Your shot on #{player_shot} was a hit."
         else
-          p "Your shot on #{player_shot} was a miss."
+          puts "Your shot on #{player_shot} was a miss."
         end
       end
     end
@@ -74,18 +78,18 @@ class GamePlay
     cpu_shot = unfired_coordinates.sample.coordinate
     @human_player.board.cells[cpu_shot].fire_upon
     if @human_player.board.cells[cpu_shot].render == "X"
-      p "My shot on #{cpu_shot} was a hit. #{@human_player.board.cells[cpu_shot].ship.name} was sunk!"
+      puts "My shot on #{cpu_shot} was a hit. #{@human_player.board.cells[cpu_shot].ship.name} was sunk!"
     elsif @human_player.board.cells[cpu_shot].render == "H"
-      p "My shot on #{cpu_shot} was a hit."
+      puts "My shot on #{cpu_shot} was a hit."
     else
-      p "My shot on #{cpu_shot} was a miss."
+      puts "My shot on #{cpu_shot} was a miss."
     end
   end
 
   def player_place_cruiser
     cruiser_coordinates = user_input.split(" ")
     until @human_player.board.valid_ship_coordinates?(cruiser_coordinates) && @human_player.board.valid_placement?(@human_cruiser, cruiser_coordinates) do
-      p "Those are INVALID coordinates. Please try again:"
+      puts "Those are INVALID coordinates. Please try again:"
       cruiser_coordinates = user_input.split(" ")
     end
     @human_player.board.place(@human_cruiser, cruiser_coordinates)
@@ -94,7 +98,7 @@ class GamePlay
   def player_place_sub
     sub_coordinates = user_input.split(" ")
     until @human_player.board.valid_ship_coordinates?(sub_coordinates) && @human_player.board.valid_placement?(@human_sub, sub_coordinates) do
-      p "Those are INVALID coordinates. Please try again:"
+      puts "Those are INVALID coordinates. Please try again:"
       sub_coordinates = user_input.split(" ")
     end
     @human_player.board.place(@human_sub, sub_coordinates)
@@ -102,9 +106,9 @@ class GamePlay
 
 # Game Messages
   def welcome_message
-    p "Welcome to BATTLESHIP"
+    puts "Welcome to BATTLESHIP"
     puts
-    p "Enter p to play. Enter q to quit."
+    puts "Enter p to play. Enter q to quit."
   end
 
   def initial_message
@@ -117,15 +121,15 @@ class GamePlay
   end
 
   def display_board
-    p "=============COMPUTER BOARD============="
+    puts "=============COMPUTER BOARD============="
     puts @cpu_player.board.render
-    p "==============PLAYER BOARD=============="
+    puts "==============PLAYER BOARD=============="
     puts @human_player.board.render(true)
   end
 
   def valid_sub_message
-    p "Example of valid cruiser coordinates is C1 C2 or C4 D4"
-    p "Enter the squares for the Submarine (2 spaces):"
+    puts "Example of valid cruiser coordinates is C1 C2 or C4 D4"
+    puts "Enter the squares for the Submarine (2 spaces):"
   end
 
   def cpu_place_ship
