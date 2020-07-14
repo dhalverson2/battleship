@@ -33,8 +33,12 @@ class Board
     end
   end
 
+  def valid_coordinate_count?(ship, coordinates)
+    ship.length == coordinates.count
+  end
+
   def valid_placement?(ship, coordinates)
-    (ship.length == coordinates.count) &&
+    valid_coordinate_count?(ship, coordinates) &&
     consecutive_coordinates?(ship, coordinates) &&
     !overlap?(coordinates) &&
     valid_ship_coordinates?(coordinates)
