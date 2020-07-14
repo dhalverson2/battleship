@@ -66,13 +66,22 @@ class BoardTest < Minitest::Test
     cruiser = Ship.new("Cruiser", 3)
     sub = Ship.new("Submarine", 2)
 
-    # assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
-    # assert_equal false, board.valid_placement?(sub, ["A2", "A3", "A4"])
+    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
+    assert_equal false, board.valid_placement?(sub, ["A2", "A3", "A4"])
     assert_equal false, board.valid_placement?(cruiser, ["A3", "A4", "A5"])
     assert_equal false, board.valid_placement?(sub, ["A4", "A5"])
 
     assert_equal true, board.valid_placement?(cruiser, ["A1", "A2", "A3"])
     assert_equal true, board.valid_placement?(sub, ["D1", "D2"])
+  end
+
+  def test_letters_ordinal_values
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+
+    assert_equal [65, 66, 67], board.letter_ordinal(["A1", "B2", "C3"])
+    assert_equal [65, 65, 65], board.letter_ordinal(["A1", "A2", "A3"])
   end
 
   def test_it_has_consecutive_coordinates

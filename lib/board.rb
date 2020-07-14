@@ -23,6 +23,13 @@ class Board
     }
   end
 
+  def valid_placement?(ship, coordinates)
+    valid_coordinate_count?(ship, coordinates) &&
+    consecutive_coordinates?(ship, coordinates) &&
+    !overlap?(coordinates) &&
+    valid_ship_coordinates?(coordinates)
+  end
+
   def valid_coordinate?(coordinate)
     @cells.include?(coordinate)
   end
@@ -37,11 +44,10 @@ class Board
     ship.length == coordinates.count
   end
 
-  def valid_placement?(ship, coordinates)
-    valid_coordinate_count?(ship, coordinates) &&
-    consecutive_coordinates?(ship, coordinates) &&
-    !overlap?(coordinates) &&
-    valid_ship_coordinates?(coordinates)
+  def overlap?(coordinates)
+    coordinates.any? do |coordinate|
+      !@cells[coordinate].empty? if !@cells[coordinate].nil?
+    end
   end
 
   def consecutive_coordinates?(ship, coordinates)
@@ -57,12 +63,6 @@ class Board
       true
     else
       false
-    end
-  end
-
-  def overlap?(coordinates)
-    coordinates.any? do |coordinate|
-      !@cells[coordinate].empty? if !@cells[coordinate].nil?
     end
   end
 
