@@ -21,12 +21,12 @@ class BoardTest < Minitest::Test
     assert_equal Cell, board.cells["A1"].class
   end
 
-  def test_it_can_create_coordinates
-    skip
-    board = Board.new
-
-    assert_equal Hash, board.create_coordinates
-  end
+  # def test_it_can_create_coordinates
+  #   skip
+  #   board = Board.new
+  #
+  #   assert_equal Hash, board.create_coordinates
+  # end
 
   def test_it_contains_a_valid_coordinate
     board = Board.new
@@ -37,6 +37,18 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_coordinate?("A5")
     assert_equal false, board.valid_coordinate?("E1")
     assert_equal false, board.valid_coordinate?("A22")
+  end
+
+  def test_its_coordinates_count_is_equal_to_length
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+
+    assert_equal true, board.valid_coordinate_count?(cruiser, ["A1", "A2", "A3"])
+    assert_equal true, board.valid_coordinate_count?(sub, ["B1", "B2"])
+
+    assert_equal false, board.valid_coordinate_count?(cruiser, ["A1", "A2"])
+    assert_equal false, board.valid_coordinate_count?(sub, ["B1", "B2", "B3"])
   end
 
   def test_it_contains_a_valid_set_of_ship_coordinates
@@ -54,8 +66,10 @@ class BoardTest < Minitest::Test
     cruiser = Ship.new("Cruiser", 3)
     sub = Ship.new("Submarine", 2)
 
-    assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
-    assert_equal false, board.valid_placement?(sub, ["A2", "A3", "A4"])
+    # assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
+    # assert_equal false, board.valid_placement?(sub, ["A2", "A3", "A4"])
+    assert_equal false, board.valid_placement?(cruiser, ["A3", "A4", "A5"])
+    assert_equal false, board.valid_placement?(sub, ["A4", "A5"])
 
     assert_equal true, board.valid_placement?(cruiser, ["A1", "A2", "A3"])
     assert_equal true, board.valid_placement?(sub, ["D1", "D2"])
