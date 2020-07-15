@@ -12,7 +12,6 @@ class GamePlay
   end
 
   def start
-    puts
     puts print_image("welcome_image.txt")
     welcome_message
     input = user_input
@@ -26,8 +25,10 @@ class GamePlay
       turn
     elsif input == "Q"
       puts "Thanks for playing"
+      puts "\n"
     else
       puts "INVALID input. Try again:"
+      puts "\n"
       start
     end
   end
@@ -40,14 +41,14 @@ class GamePlay
     end
     display_board
     if human_wins?
-      puts
+      puts "\n"
       puts "You won!"
     else
-      puts
+      puts "\n"
       puts "I won!"
     end
     puts print_image("game_over_image.txt")
-    puts
+    puts "\n"
     play_again
     start
   end
@@ -57,24 +58,24 @@ class GamePlay
     player_shot = user_input
     until @cpu_player.board.valid_coordinate?(player_shot) do
       puts "That was INVALID. Try again:"
-      puts
+      puts "\n"
       player_shot = user_input
     end
     if @cpu_player.board.valid_coordinate?(player_shot)
       if @cpu_player.board.cells[player_shot].fired_upon?
         puts "Already fired upon this space. Lose a turn."
-        puts
+        puts "\n"
       else
         @cpu_player.board.cells[player_shot].fire_upon
         if @cpu_player.board.cells[player_shot].render == "X"
           puts "Your shot on #{player_shot} was a hit. #{@cpu_player.board.cells[player_shot].ship.name} was sunk!"
-          puts
+          puts "\n"
         elsif @cpu_player.board.cells[player_shot].render == "H"
           puts "Your shot on #{player_shot} was a hit."
-          puts
+          puts "\n"
         else
           puts "Your shot on #{player_shot} was a miss."
-          puts
+          puts "\n"
         end
       end
     end
@@ -88,13 +89,13 @@ class GamePlay
     @human_player.board.cells[cpu_shot].fire_upon
     if @human_player.board.cells[cpu_shot].render == "X"
       puts "My shot on #{cpu_shot} was a hit. #{@human_player.board.cells[cpu_shot].ship.name} was sunk!"
-      puts
+      puts "\n"
     elsif @human_player.board.cells[cpu_shot].render == "H"
       puts "My shot on #{cpu_shot} was a hit."
-      puts
+      puts "\n"
     else
       puts "My shot on #{cpu_shot} was a miss."
-      puts
+      puts "\n"
     end
   end
 
@@ -102,7 +103,7 @@ class GamePlay
     cruiser_coordinates = user_input.split(" ")
     until @human_player.board.valid_ship_coordinates?(cruiser_coordinates) && @human_player.board.valid_placement?(@human_cruiser, cruiser_coordinates) do
       puts "Those are INVALID coordinates. Please try again:"
-      puts
+      puts "\n"
       cruiser_coordinates = user_input.split(" ")
     end
     @human_player.board.place(@human_cruiser, cruiser_coordinates)
@@ -112,22 +113,22 @@ class GamePlay
     sub_coordinates = user_input.split(" ")
     until @human_player.board.valid_ship_coordinates?(sub_coordinates) && @human_player.board.valid_placement?(@human_sub, sub_coordinates) do
       puts "Those are INVALID coordinates. Please try again:"
-      puts
+      puts "\n"
       sub_coordinates = user_input.split(" ")
     end
     @human_player.board.place(@human_sub, sub_coordinates)
   end
 
   def welcome_message
-    puts
+    puts "\n"
     puts "Welcome to BATTLESHIP"
-    puts
+    puts "\n"
     puts "Enter p to play. Enter q to quit."
-    puts
+    puts "\n"
   end
 
   def initial_message
-    puts
+    puts "\n"
     puts "I have laid out my ships on the grid."
     sleep 0.5
     puts "You now need to lay out your two ships."
@@ -138,27 +139,27 @@ class GamePlay
     sleep 0.5
     puts "Example of valid cruiser coordinates is A1 A2 A3 or A3 B3 C3"
     sleep 0.5
-    puts
+    puts "\n"
     puts "Enter the squares for the cuiser (3 spaces):"
-    puts
+    puts "\n"
   end
 
   def display_board
-    puts
+    puts "\n"
     puts "=============COMPUTER BOARD============="
     puts @cpu_player.board.render
     puts "==============PLAYER BOARD=============="
     puts @human_player.board.render(true)
-    puts
+    puts "\n"
   end
 
   def valid_sub_message
-    puts
+    puts "\n"
     puts "Example of valid cruiser coordinates is C1 C2 or C4 D4"
     sleep 0.5
-    puts
+    puts "\n"
     puts "Enter the squares for the Submarine (2 spaces):"
-    puts
+    puts "\n"
   end
 
   def cpu_place_ship
