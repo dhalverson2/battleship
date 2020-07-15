@@ -64,9 +64,7 @@ class GamePlayTest < Minitest::Test
   #   human_player.board.cells["B3"].fire_upon
   #   human_player.board.cells["A1"].fire_upon
   #   human_player.board.cells["A2"].fire_upon
-  #
   #   assert_equal true, game_play.cpu_wins?
-  #
   # end
 
   def test_it_can_return_when_human_wins
@@ -78,14 +76,8 @@ class GamePlayTest < Minitest::Test
     cell_2 = Cell.new("B3")
     cell_3 = Cell.new("B4")
     board.place(cruiser, ["A1", "A2", "A3"])
-
-
-
   end
 
   def test_it_can_return_when_game_is_over
-
-
   end
-
 end
