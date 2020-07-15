@@ -77,7 +77,4 @@ class GamePlayTest < Minitest::Test
     cell_3 = Cell.new("B4")
     board.place(cruiser, ["A1", "A2", "A3"])
   end
-
-  def test_it_can_return_when_game_is_over
-  end
 end
