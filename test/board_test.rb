@@ -22,10 +22,28 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_can_create_coordinates
-    skip
     board = Board.new
 
-    assert_equal Hash, board.create_coordinates
+    expected = {
+      "A1" => Cell.new("A1"),
+      "A2" => Cell.new("A2"),
+      "A3" => Cell.new("A3"),
+      "A4" => Cell.new("A4"),
+      "B1" => Cell.new("B1"),
+      "B2" => Cell.new("B2"),
+      "B3" => Cell.new("B3"),
+      "B4" => Cell.new("B4"),
+      "C1" => Cell.new("C1"),
+      "C2" => Cell.new("C2"),
+      "C3" => Cell.new("C3"),
+      "C4" => Cell.new("C4"),
+      "D1" => Cell.new("D1"),
+      "D2" => Cell.new("D2"),
+      "D3" => Cell.new("D3"),
+      "D4" => Cell.new("D4")
+    }
+    assert_equal expected.keys, board.create_coordinates.keys
+    assert_equal true, board.create_coordinates.values.all? { |cell| cell.instance_of?(Cell)}
   end
 
   def test_it_contains_a_valid_coordinate
@@ -37,6 +55,18 @@ class BoardTest < Minitest::Test
     assert_equal false, board.valid_coordinate?("A5")
     assert_equal false, board.valid_coordinate?("E1")
     assert_equal false, board.valid_coordinate?("A22")
+  end
+
+  def test_its_coordinates_count_is_equal_to_length
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+
+    assert_equal true, board.valid_coordinate_count?(cruiser, ["A1", "A2", "A3"])
+    assert_equal true, board.valid_coordinate_count?(sub, ["B1", "B2"])
+
+    assert_equal false, board.valid_coordinate_count?(cruiser, ["A1", "A2"])
+    assert_equal false, board.valid_coordinate_count?(sub, ["B1", "B2", "B3"])
   end
 
   def test_it_contains_a_valid_set_of_ship_coordinates
@@ -56,9 +86,29 @@ class BoardTest < Minitest::Test
 
     assert_equal false, board.valid_placement?(cruiser, ["A1", "A2"])
     assert_equal false, board.valid_placement?(sub, ["A2", "A3", "A4"])
+    assert_equal false, board.valid_placement?(cruiser, ["A3", "A4", "A5"])
+    assert_equal false, board.valid_placement?(sub, ["A4", "A5"])
 
     assert_equal true, board.valid_placement?(cruiser, ["A1", "A2", "A3"])
     assert_equal true, board.valid_placement?(sub, ["D1", "D2"])
+  end
+
+  def test_letters_ordinal_values
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+
+    assert_equal [65, 66, 67], board.letter_ordinal(["A1", "B2", "C3"])
+    assert_equal [65, 65, 65], board.letter_ordinal(["A1", "A2", "A3"])
+  end
+
+  def test_numbers_ordinal_values
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    sub = Ship.new("Submarine", 2)
+
+    assert_equal [1, 2, 3], board.number_ordinal(["A1", "B2", "C3"])
+    assert_equal [1, 1, 1], board.number_ordinal(["A1", "B1", "C1"])
   end
 
   def test_it_has_consecutive_coordinates
