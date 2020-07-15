@@ -26,7 +26,7 @@ class Board
   def create_coordinates
     letters = ["A", "B", "C", "D"]
     numbers = ["1", "2", "3", "4"]
-    result = Hash.new
+    result = {}
     letters.each do |letter|
       numbers.each do |number|
         coordinate = "#{letter}#{number}"

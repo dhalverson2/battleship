@@ -42,7 +42,6 @@ class BoardTest < Minitest::Test
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4")
     }
-
     assert_equal expected.keys, board.create_coordinates.keys
     assert_equal true, board.create_coordinates.values.all? { |cell| cell.instance_of?(Cell)}
   end
